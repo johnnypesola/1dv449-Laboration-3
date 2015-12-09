@@ -10,8 +10,10 @@ module.exports = function(grunt) {
                     './app/bower_components/angular/angular.js',
                     './app/bower_components/angular-loader/angular-loader.js',
                     './app/bower_components/angular-route/angular-route.js',
+                    './app/bower_components/angular-resource/angular-resource.js',
                     './app/app.js',
                     './app/controllers/*/*.js',
+                    './app/shared/*/*.js',
                     './app/lib/jquery.min.js',
                     './app/lib/bootstrap.min.js'
                 ],
