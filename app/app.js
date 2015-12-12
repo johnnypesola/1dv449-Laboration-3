@@ -9,12 +9,10 @@
     MashApp = angular.module('MashApp', [
         'ngRoute',
         'ngResource',
+        'MashApp.header',
         'MashApp.start'
     ]);
 
-
-    // Define API URL:s, used in services
-    MashApp.constant('TRAFFIC_INFO_API_URL', 'http://api.sr.se/api/v2/traffic/messages');
 
     // Define routes
     MashApp.config(['$routeProvider', function($routeProvider) {

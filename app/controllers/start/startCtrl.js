@@ -26,6 +26,20 @@
 
           /* Private methods START */
 
+          var getTrafficInfo = function(){
+
+              TrafficInfo.getAll()
+
+                  .success(function(trafficMessages){
+
+                      $scope.trafficMessages = trafficMessages.messages;
+                  })
+
+                  .error(function(){
+
+                  });
+          };
+
           /* Private methods END */
 
           /* Public methods START */
@@ -34,16 +48,17 @@
 
           /* Initialization START */
 
-          var trafficInfo = TrafficInfo.queryTraffic();
+          getTrafficInfo();
 
           // In case data cannot be fetched, display an error to user.
+          /*
           trafficInfo.$promise.catch(function(){
 
-              /*
+
               $rootScope.FlashMessage = {
                   type: 'error',
                   message: 'Trafikinformationen kunde inte hämtas, var god försök igen.'
-              };*/
+              };
 
               $scope.trafficInfo = null;
           });
