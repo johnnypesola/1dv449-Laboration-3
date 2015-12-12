@@ -28,16 +28,25 @@
              }
              */
 
-
             // Define variables used in service
             var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/?format=json';
             var serviceMethods = {};
 
             // Define methods available for this service
+
             serviceMethods.getAll = function(){
                 return $http.get(apiUrl);
             };
 
+            serviceMethods.getCategories = function(){
+                return {
+                    0: "Vägtrafik",
+                    1: "Kollektivtrafik",
+                    2: "Planerad störning",
+                    3: "Övrigt"
+                }
+            };
+
             return serviceMethods;
-        }]);
+        }])
 })();
