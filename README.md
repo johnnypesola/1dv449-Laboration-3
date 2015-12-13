@@ -1,8 +1,11 @@
 # 1DV449 Laboration 3 - MashUp
 
+#### Memos
 If you want to do some work on this repo locally then first make sure you've got node.js installed. After that run npm install in the root directory to install dependencies needed like angular source files and such which isn't present in this repo. This repo is kind of a compiled version so to say to avoid unneccessary files.
    
-If you wish to make changes to the javascript or css files, make your changes and then compile it as I've done. Make sure so you've got Grunt installed and just use a terminal to run the 'grunt' command in the project root. Everything should now be compiled.
+Make sure you concatinate and minify the javascript and css files after changing them in the following way: Make sure so you've got Grunt installed and just use a terminal to run the 'grunt' command in the project root. Now you're good to go.
+
+Johnny Pesola, December 2015
 
 -----
 
@@ -31,6 +34,3 @@ Jag provade mig på simulera XSS attacker genom att skriva javascript i GET-data
 ### Hur har du tänkt kring optimeringen i din applikation?
 
 Jag har konfigurerat verktyget Grunt för att konkatinera och minifiera alla javascript-filer i applikationen till en enda fil med namnet "all.concat.min.js", lika så med alla CSS stilmallar till filen "all.concat.min.css". Det här inkluderar alla javasript bibliotek som applikationen är beroende av samt alla applikationsspecifika javascript-filer. CSS-filerna som berörs är bootstrap.css och app.css. Dock så rensade jag bootstrap filen på onödiga stilar för glyphs, vilka jag inte använder i applikationen.
-
-
-Johnny Pesola December 2015
