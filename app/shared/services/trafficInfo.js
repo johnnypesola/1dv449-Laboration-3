@@ -7,33 +7,16 @@
     angular.module('MashApp.trafficInfoServices',
 
         // Dependencies
-        [])
-
-
+        ['angular-cache']
+    )
         .factory('TrafficInfo', ["$http", "$q", function($http, $q){
 
-            // Example of a JSON response from API
-            /*
-            {
-                 "id":1539416,
-                 "priority":5,
-                 "createddate":"/Date(1447764180897+0100)/",
-                 "title":"Rv 84 Sörsforsa-Delsbo",
-                 "exactlocation":"Vid avfarten Näsviken",
-                 "description":"",
-                 "latitude":61.74943542480469,
-                 "longitude":16.835500717163086,
-                 "category":0,
-                 "subcategory":"Vägarbete"
-             }
-             */
+        /* Init Variables START */
 
-            // Define variables used in service
             var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/?format=json';
             var serviceMethods = {};
 
-            // Define methods available for this service
-
+        /* Init Variables END */
 
         /* Private Methods START */
 
@@ -44,6 +27,23 @@
         /* Private Methods END */
 
         /* Public Methods START */
+
+            // Example of a JSON response from API
+            /*
+             {
+             "id":1539416,
+             "priority":5,
+             "createddate":"/Date(1447764180897+0100)/",
+             "title":"Rv 84 Sörsforsa-Delsbo",
+             "exactlocation":"Vid avfarten Näsviken",
+             "description":"",
+             "latitude":61.74943542480469,
+             "longitude":16.835500717163086,
+             "category":0,
+             "subcategory":"Vägarbete"
+             }
+             */
+
             serviceMethods.getAll = function(){
 
                 var deferred, trafficMessagesToReturnArray = [];

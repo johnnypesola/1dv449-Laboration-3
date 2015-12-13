@@ -12,6 +12,7 @@ module.exports = function(grunt) {
                     './app/bower_components/angular-route/angular-route.js',
                     './app/bower_components/angular-resource/angular-resource.js',
                     './app/bower_components/ngmap/build/scripts/ng-map.min.js',
+                    './app/bower_components/angular-cache/dist/angular-cache.min.js',
                     './app/app.js',
                     './app/controllers/*/*.js',
                     './app/shared/*/*.js',

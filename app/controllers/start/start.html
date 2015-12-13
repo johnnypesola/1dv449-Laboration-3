@@ -37,6 +37,7 @@
                 <tbody>
                     <tr ng-repeat="trafficMessage in trafficMessages"
                         ng-mouseover="highlightTrafficMessage(trafficMessage)"
+                        ng-mouseleave="highlightTrafficMessage()"
                         ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
                     >
                         <td>
@@ -70,6 +71,7 @@
                             <a class="map-marker-button"
                                ng-click="setSpecificTrafficMsg(trafficMessage)"
                                ng-mouseover="highlightTrafficMessage(trafficMessage)"
+                               ng-mouseleave="highlightTrafficMessage()"
                                ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
                                data-toggle="modal"
                                data-target="#specificTrafficMessage">
