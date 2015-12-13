@@ -28,16 +28,19 @@
             <table class="table" ng-show="trafficMessages.length">
                 <thead>
                     <tr>
-                        <th>Prio</th>
+                        <th>Tidpunkt</th>
                         <th>Titel</th>
                         <th>Typ</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="trafficMessage in trafficMessages">
+                    <tr ng-repeat="trafficMessage in trafficMessages"
+                        ng-mouseover="highlightTrafficMessage(trafficMessage)"
+                        ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
+                    >
                         <td>
-                            {{trafficMessage.priority}}
+                            <small>{{trafficMessage.createddate | date:'yyyy-MM-dd (HH:mm)'}}</small>
                         </td>
                         <td>
                             {{trafficMessage.title}}
@@ -64,7 +67,12 @@
                     >
                         <div class="cm">
                             <!-- Runs angular function and also toggles bootstrap modal with "data-toggle" and "data-target" attributes -->
-                            <a class="map-marker-button" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">
+                            <a class="map-marker-button"
+                               ng-click="setSpecificTrafficMsg(trafficMessage)"
+                               ng-mouseover="highlightTrafficMessage(trafficMessage)"
+                               ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
+                               data-toggle="modal"
+                               data-target="#specificTrafficMessage">
                                 {{trafficMessage.subcategory}}
                             </a>
                         </div>
@@ -90,7 +98,16 @@
                         <tbody>
                             <tr>
                                 <th>Datum</th>
-                                <td>{{currentSpecificTrafficMsg.createddate}}</td>
+                                <td>
+                                    {{currentSpecificTrafficMsg.createddate | date:'yyyy-MM-dd'}}
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th>Tid</th>
+                                <td>
+                                    {{currentSpecificTrafficMsg.createddate | date:'HH:mm'}}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Prio</th>

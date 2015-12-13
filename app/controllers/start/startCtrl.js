@@ -35,9 +35,9 @@
               TrafficInfo.getAll()
 
               // All went good.
-                  .success(function(trafficMessages){
+                  .then(function(trafficMessages){
 
-                      allTrafficMessagesArray = trafficMessages.messages;
+                      allTrafficMessagesArray = trafficMessages;
 
                       // Display all messages
                       displayMessagesForCategory();
@@ -47,7 +47,7 @@
                   })
 
               // In case data cannot be fetched, display an error to user.
-                  .error(function(){
+                  .catch(function(){
 
                       $rootScope.FlashMessage = {
                           type: 'error',
@@ -115,6 +115,11 @@
           $scope.setSpecificTrafficMsg = function(trafficMessage){
 
               $scope.currentSpecificTrafficMsg = trafficMessage;
+          };
+
+          $scope.highlightTrafficMessage = function(trafficMessage){
+
+              $scope.hightlightedTrafficMsg = trafficMessage;
           };
 
       /* Public methods END */

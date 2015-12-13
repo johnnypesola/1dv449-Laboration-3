@@ -32,3 +32,21 @@ ng-map {
     height: 600px !important;
     display: block;
 }
+
+tr.highlight {
+    background: #0b97c4;
+    color: #fff;
+}
+
+a.highlight {
+    background: #0b97c4;
+    color: #fff;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow:    none;
+    box-shadow:         none;
+}
+
+a.highlight:after {
+    border-color: #0b97c4 transparent;
+}

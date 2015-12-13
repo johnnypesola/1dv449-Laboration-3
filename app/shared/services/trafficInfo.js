@@ -10,9 +10,9 @@
         [])
 
 
-        .factory('TrafficInfo', ["$http", function($http){
+        .factory('TrafficInfo', ["$http", "$q", function($http, $q){
 
-            // Each message has the following unique values
+            // Example of a JSON response from API
             /*
             {
                  "id":1539416,
@@ -34,8 +34,55 @@
 
             // Define methods available for this service
 
+
+        /* Private Methods START */
+
+            var parseDate = function(dateStr){
+                return new Date(parseInt(dateStr.substr(6)));
+            };
+
+        /* Private Methods END */
+
+        /* Public Methods START */
             serviceMethods.getAll = function(){
-                return $http.get(apiUrl);
+
+                var deferred, trafficMessagesToReturnArray = [];
+
+                // Create promise
+                deferred = $q.defer();
+
+                // Fetch api result
+                $http.get(apiUrl)
+
+                    // All went good.
+                    .success(function(response){
+
+                        response.messages.forEach(function(msg){
+
+                            // Parse date variables
+                            msg.createddate = parseDate(msg.createddate);
+
+                            trafficMessagesToReturnArray.push(msg);
+                        });
+
+                        // Sort results after createddate
+                        trafficMessagesToReturnArray.sort(function(a,b){
+                            return new Date(b.createddate) - new Date(a.createddate);
+                        });
+
+                        // Return parsed array
+                        deferred.resolve(trafficMessagesToReturnArray);
+                    })
+
+                    // In case data cannot be fetched
+                    .error(function(){
+
+                        deferred.reject();
+                    });
+
+
+                // Return promise
+                return deferred.promise;
             };
 
             serviceMethods.getCategories = function(){
@@ -46,6 +93,8 @@
                     3: "Övrigt"
                 }
             };
+
+        /* Public Methods END */
 
             return serviceMethods;
         }])
