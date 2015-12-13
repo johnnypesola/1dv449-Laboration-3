@@ -20,13 +20,21 @@
       }])
 
       // Controller
-      .controller('StartCtrl', ["$rootScope", "$scope", "$routeParams", "TrafficInfo", "NgMap", function($rootScope, $scope, $routeParams, TrafficInfo, NgMap){
+      .controller('StartCtrl', ["$rootScope", "$scope", "$routeParams", "$timeout", "TrafficInfo", "NgMap", function($rootScope, $scope, $routeParams, $timeout, TrafficInfo, NgMap){
 
-      /* Init variables */
+      /* Init variables START */
           var that = this;
           var allTrafficMessagesArray = [];
+          var getDataInterval = 1000 * 60 * 5; // Every 5 minutes
+
           $scope.allTrafficMsgCategories = TrafficInfo.getCategories();
           $scope.currentTrafficMsgCategory = "all";
+          $scope.mapValues = {
+              center: [62, 16],
+              zoom: 5
+          };
+
+      /* Init variables END */
 
       /* Private methods START */
 
@@ -58,15 +66,12 @@
 
           var displayMessagesForCategory = function() {
 
-              var message;
               $scope.trafficMessages = [];
 
               // If category num is between 0 and 4
               if(+$scope.currentTrafficMsgCategory >= 0 && +$scope.currentTrafficMsgCategory <= 4) {
 
                   allTrafficMessagesArray.forEach(function(message){
-
-
 
                       // If message category is the category that the user wants
                       if(message.category === +$scope.currentTrafficMsgCategory) {
@@ -100,6 +105,15 @@
                   });
           };
 
+          that.runMethodInIntervals = function(methodToRun){
+
+              // Replicate setInterval using $timeout service.
+
+              $timeout(function() {
+                  methodToRun();
+                  that.runMethodInIntervals(methodToRun); // Call itself
+              }, getDataInterval)
+          };
 
       /* Private methods END */
 
@@ -127,6 +141,7 @@
       /* Initialization START */
 
           getTrafficInfo();
+          that.runMethodInIntervals(getTrafficInfo);
 
       /* Initialization END */
 

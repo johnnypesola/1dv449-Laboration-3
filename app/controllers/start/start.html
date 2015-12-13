@@ -28,6 +28,7 @@
             <table class="table" ng-show="trafficMessages.length">
                 <thead>
                     <tr>
+                        <th>Prio</th>
                         <th>Tidpunkt</th>
                         <th>Titel</th>
                         <th>Typ</th>
@@ -40,6 +41,9 @@
                         ng-mouseleave="highlightTrafficMessage()"
                         ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
                     >
+                        <td class="text-center">
+                            <span class="label prio{{trafficMessage.priority}}">{{trafficMessage.priority}}</span>
+                        </td>
                         <td>
                             <small>{{trafficMessage.createddate | date:'yyyy-MM-dd (HH:mm)'}}</small>
                         </td>
@@ -60,7 +64,7 @@
         <div class="col-md-6">
 
             <div map-lazy-load="https://maps.google.com/maps/api/js">
-                <ng-map zoom="5" center="[62, 16]">
+                <ng-map zoom="{{mapValues.zoom}}" center="[{{mapValues.center[0]}}, {{mapValues.center[1]}}]">
 
                     <custom-marker
                             position="[{{trafficMessage.latitude}}, {{trafficMessage.longitude}}]"
@@ -72,11 +76,13 @@
                                ng-click="setSpecificTrafficMsg(trafficMessage)"
                                ng-mouseover="highlightTrafficMessage(trafficMessage)"
                                ng-mouseleave="highlightTrafficMessage()"
-                               ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
                                data-toggle="modal"
                                data-target="#specificTrafficMessage"
+                               ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
                             >
-                                {{trafficMessage.subcategory}}
+                                <span class="label prio{{trafficMessage.priority}}">{{trafficMessage.priority}}</span>
+
+                                <span class="cat-text">{{trafficMessage.subcategory}}</span>
                             </a>
                         </div>
                     </custom-marker>
@@ -100,25 +106,22 @@
                     <table class="table">
                         <tbody>
                             <tr>
+                                <th>Prio</th>
+                                <td>
+                                    <span class="label prio{{currentSpecificTrafficMsg.priority}}">{{currentSpecificTrafficMsg.priority}}</span>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Datum</th>
                                 <td>
                                     {{currentSpecificTrafficMsg.createddate | date:'yyyy-MM-dd'}}
                                 </td>
-
                             </tr>
                             <tr>
                                 <th>Tid</th>
                                 <td>
                                     {{currentSpecificTrafficMsg.createddate | date:'HH:mm'}}
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>Prio</th>
-                                <td>{{currentSpecificTrafficMsg.priority}}</td>
-                            </tr>
-                            <tr>
-                                <th>Titel</th>
-                                <td>{{currentSpecificTrafficMsg.title}}</td>
                             </tr>
                             <tr>
                                 <th>Typ</th>

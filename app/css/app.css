@@ -3,6 +3,7 @@
 }
 
 .map-marker-button {
+    position: relative;
     cursor: pointer;
     display: block;
     background: #FFF;
@@ -13,7 +14,7 @@
     -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
 
-    padding: 0 2px;
+    padding: 1px 2px;
 }
 
 .map-marker-button:after {
@@ -26,6 +27,17 @@
     border-color: #fff transparent;
     display: block;
     width: 0;
+}
+
+.map-marker-button span.label {
+    position: absolute;
+    top:3px;
+    left:2px;
+}
+
+.map-marker-button span.cat-text {
+    margin-left: 19px;
+    background: none !important;
 }
 
 ng-map {
@@ -48,4 +60,29 @@ a.highlight {
 
 a.highlight:after {
     border-color: #0b97c4 transparent;
+}
+
+a.highlight span.label {
+    background: #fff !important;
+    color: #0b97c4;
+}
+
+span.prio1 {
+    background: #cc0000;
+}
+
+span.prio2 {
+    background: #cc7000;
+}
+
+span.prio3 {
+    background: #e5ce00;
+}
+
+span.prio4 {
+    background: #95cc38;
+}
+
+span.prio5 {
+    background: #72c0e3;
 }
