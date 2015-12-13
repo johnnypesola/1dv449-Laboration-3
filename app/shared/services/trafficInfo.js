@@ -9,16 +9,30 @@
         // Dependencies
         ['angular-cache']
     )
-        .factory('TrafficInfo', ["$http", "$q", function($http, $q){
+        .factory('TrafficInfo', ["$http", "$q", "CacheFactory", function($http, $q, CacheFactory){
 
         /* Init Variables START */
 
-            var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/?format=json';
-            var serviceMethods = {};
+            var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/?format=json',
+                serviceMethods = {},
+                cacheName = 'trafficInfoCache',
+                cachedData;
 
         /* Init Variables END */
 
         /* Private Methods START */
+
+            var setupCache = function(){
+
+                // If cache does not exist, create it.
+                if (!CacheFactory.get(cacheName)) {
+
+                    CacheFactory.createCache(cacheName);
+                }
+
+                // Get data from cache
+                cachedData = CacheFactory.get(cacheName)
+            };
 
             var parseDate = function(dateStr){
                 return new Date(parseInt(dateStr.substr(6)));
@@ -52,7 +66,7 @@
                 deferred = $q.defer();
 
                 // Fetch api result
-                $http.get(apiUrl)
+                $http.get(apiUrl, { cache: cachedData })
 
                     // All went good.
                     .success(function(response){
@@ -95,6 +109,12 @@
             };
 
         /* Public Methods END */
+
+        /* Initialization START */
+
+            setupCache();
+
+        /* Initialization END */
 
             return serviceMethods;
         }])

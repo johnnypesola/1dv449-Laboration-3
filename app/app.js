@@ -19,7 +19,11 @@
         // Cache settings for $http
         angular.extend(
             CacheFactoryProvider.defaults, {
-                maxAge: 15 * 60 * 1000 // 15 minutes
+                storageMode: 'localStorage',
+                maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+                cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
+                deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+                recycleFreq: 60000 // Determines how often a cache will scan for expired items when in aggressive mode.
             }
         );
 
