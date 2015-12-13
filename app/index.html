@@ -13,18 +13,22 @@
 </head>
 <body>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+  <div class="container">
 
-  <div class="flash-message-container" data-ng-controller="FlashMessageCtrl" data-ng-show="messageVisible">
-    <div class="{{messageClass}}">
-      {{messageText}}
-      <a href="" data-ng-click="hideMessage()">&#215;</a>
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="flash-message-container push-top alert {{messageClass}}" data-ng-controller="FlashMessageCtrl" data-ng-show="messageVisible">
+      <div>
+        {{messageText}}
+        <button type="button" class="btn btn-xs btn-default" ng-click="hideMessage()">Ok</button>
+      </div>
     </div>
-  </div>
 
-  <div ng-view></div>
+    <div ng-view></div>
+
+  </div>
 
   <script src="all.concat.min.js"></script>
 </body>

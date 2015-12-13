@@ -7,32 +7,28 @@
       // Load Dependencies
       [
           'MashApp.trafficInfoServices',
-          //'uiGmapgoogle-maps' // Google maps API | This is the other wrapper that we first used
-          'ngMap' // The new wrapper
+          'ngMap'
       ])
 
-      .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/start', {
-          templateUrl: 'controllers/start/start.html',
-          controller: 'StartCtrl'
-        });
-      }])
-
       // Config for module
-      .config(["$routeProvider", function($routeProvider) {
+      .config(['$routeProvider', function($routeProvider) {
 
+            $routeProvider.when('/start', {
+                templateUrl: 'controllers/start/start.html',
+                controller: 'StartCtrl'
+            });
       }])
 
       // Controller
-      .controller('StartCtrl', ["$scope", "$routeParams", "TrafficInfo", "NgMap", function($scope, $routeParams, TrafficInfo, NgMap){
+      .controller('StartCtrl', ["$rootScope", "$scope", "$routeParams", "TrafficInfo", "NgMap", function($rootScope, $scope, $routeParams, TrafficInfo, NgMap){
 
-          /* Init variables */
+      /* Init variables */
           var that = this;
           var allTrafficMessagesArray = [];
           $scope.allTrafficMsgCategories = TrafficInfo.getCategories();
           $scope.currentTrafficMsgCategory = "all";
 
-          /* Private methods START */
+      /* Private methods START */
 
           var getTrafficInfo = function(){
 
@@ -66,22 +62,27 @@
               $scope.trafficMessages = [];
 
               // If category num is between 0 and 4
-              if($scope.currentTrafficMsgCategory >= 0 && $scope.currentTrafficMsgCategory <= 4) {
+              if(+$scope.currentTrafficMsgCategory >= 0 && +$scope.currentTrafficMsgCategory <= 4) {
+
+                  allTrafficMessagesArray.forEach(function(message){
 
 
-                  for (message in allTrafficMessagesArray) {
 
                       // If message category is the category that the user wants
-                      if(message.category === $scope.currentTrafficMsgCategory) {
+                      if(message.category === +$scope.currentTrafficMsgCategory) {
 
                           // Add message to scope.
                           $scope.trafficMessages.push(message);
                       }
-                  }
+                  });
+
               }
               else {
                   $scope.trafficMessages = allTrafficMessagesArray;
               }
+
+              // If no items were found, set flag
+              $scope.noItemsFound = !$scope.trafficMessages.length;
           };
 
           var drawMap = function(){
@@ -90,42 +91,39 @@
               var position;
               NgMap.getMap()
 
-                  .then(function(map) {
-                      console.log(map.getCenter());
-
-                      console.log('markers', map.markers);
-                      console.log('shapes', map.shapes);
-                      console.log("drawMap done");
-
-                })
-
                   .catch(function(error) {
-                      console.log(error);
-                  });
 
+                      $rootScope.FlashMessage = {
+                          type: 'error',
+                          message: 'Kartan kunde inte hämtas, var god försök igen.'
+                      };
+                  });
           };
 
 
-          /* Private methods END */
+      /* Private methods END */
 
-          /* Public methods START */
+      /* Public methods START */
 
           $scope.changeToTrafficMsgCategory = function(categoryNum){
 
-              $scope.currentTrafficMsgCategory = categoryNum;
+              $scope.currentTrafficMsgCategory = categoryNum.toString();
 
               displayMessagesForCategory();
           };
 
-          /* Public methods END */
+          $scope.setSpecificTrafficMsg = function(trafficMessage){
 
-          /* Initialization START */
+              $scope.currentSpecificTrafficMsg = trafficMessage;
+          };
+
+      /* Public methods END */
+
+      /* Initialization START */
 
           getTrafficInfo();
 
-          drawMap();
-
-          /* Initialization END */
+      /* Initialization END */
 
       }]);
 })();

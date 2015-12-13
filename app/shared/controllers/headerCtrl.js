@@ -34,13 +34,13 @@
             if ((typeof(newValue) !== 'undefined') && (newValue !== null) && (typeof newValue.type !== 'undefined')) {
                 // Add class
                 if(newValue.type === 'error'){
-                    $scope.messageClass = 'error';
+                    $scope.messageClass = 'alert-danger';
                 }
                 if(newValue.type === 'success'){
-                    $scope.messageClass = 'success';
+                    $scope.messageClass = 'alert-success';
                 }
                 if(newValue.type === 'warning'){
-                    $scope.messageClass = 'warning';
+                    $scope.messageClass = 'alert-warning';
                 }
 
                 // Add message

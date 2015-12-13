@@ -17,7 +17,7 @@
     // Define routes
     MashApp.config(['$routeProvider', function($routeProvider) {
 
-        // Startpage
+        // Set Startpage
         $routeProvider.when('/', {
             templateUrl: 'controllers/start/start.html',
             controller: 'StartCtrl'

@@ -1,4 +1,3 @@
-<div class="container">
 
     <div class="page-header">
         <h1>Trafikinformation</h1>
@@ -21,14 +20,18 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            {{currentTrafficMsgCategory}}
 
-            <table class="table">
+            <div ng-show="noItemsFound" class="push-top alert alert-warning">
+                Inga meddelanden hittades för kategorin.
+            </div>
+
+            <table class="table" ng-show="trafficMessages.length">
                 <thead>
                     <tr>
                         <th>Prio</th>
                         <th>Titel</th>
-                        <th>Kategori</th>
+                        <th>Typ</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +45,9 @@
                         <td>
                             {{trafficMessage.subcategory}}
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">Mer info</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -50,38 +56,76 @@
         <div class="col-md-6">
 
             <div map-lazy-load="https://maps.google.com/maps/api/js">
-                <ng-map zoom="3">
+                <ng-map zoom="5" center="[62, 16]">
 
-                    <custom-marker position="[{{trafficMessage.latitude}}, {{trafficMessage.longitude}}]" ng-repeat="trafficMessage in trafficMessages">
+                    <custom-marker
+                            position="[{{trafficMessage.latitude}}, {{trafficMessage.longitude}}]"
+                            ng-repeat="trafficMessage in trafficMessages"
+                    >
                         <div class="cm">
-                            {{trafficMessage.title}}
+                            <!-- Runs angular function and also toggles bootstrap modal with "data-toggle" and "data-target" attributes -->
+                            <a class="map-marker-button" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">
+                                {{trafficMessage.subcategory}}
+                            </a>
                         </div>
                     </custom-marker>
 
                 </ng-map>
             </div>
 
-            <!--
-            <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" bounds="map.bounds">
-                <ui-gmap-markers
-                        models="markers"
-                        coords="'coords'"
-                        icon="'icon'"
-                        title="'title'"
-                        click="showLocation"
-                        fit="true"
-                        show="false"
-                >
-
-                    <ui-gmap-windows closeClick="'hideLocation'">
-                        <div ng-non-bindable>{{title}}</div>
-                    </ui-gmap-windows>
-
-                </ui-gmap-markers>
-            </ui-gmap-google-map>
-            -->
         </div>
 
     </div>
 
-</div>
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="specificTrafficMessage" tabindex="-1" role="dialog" aria-labelledby="specificTrafficMessageLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{currentSpecificTrafficMsg.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Datum</th>
+                                <td>{{currentSpecificTrafficMsg.createddate}}</td>
+                            </tr>
+                            <tr>
+                                <th>Prio</th>
+                                <td>{{currentSpecificTrafficMsg.priority}}</td>
+                            </tr>
+                            <tr>
+                                <th>Titel</th>
+                                <td>{{currentSpecificTrafficMsg.title}}</td>
+                            </tr>
+                            <tr>
+                                <th>Typ</th>
+                                <td>{{currentSpecificTrafficMsg.subcategory}}</td>
+                            </tr>
+                            <tr>
+                                <th>Specifik plats</th>
+                                <td>{{currentSpecificTrafficMsg.exactlocation}}</td>
+                            </tr>
+                            <tr>
+                                <th>Beskrivning</th>
+                                <td>{{currentSpecificTrafficMsg.description}}</td>
+                            </tr>
+                            <tr>
+                                <th>Latitud</th>
+                                <td>{{currentSpecificTrafficMsg.latitude}}</td>
+                            </tr>
+                            <tr>
+                                <th>Longitud</th>
+                                <td>{{currentSpecificTrafficMsg.longitude}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Stäng</button>
+                </div>
+            </div>
+        </div>
+    </div>
