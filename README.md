@@ -29,7 +29,7 @@ Det finns en potentiell risk för XSS attack ifrån SR:s API, men angular nautra
 
 ### Hur har du tänkt kring säkerheten i din applikation?
 
-Jag provade mig på simulera XSS attacker genom att skriva javascript i GET-datan in i angular, men angular sköter detta bra genom att skriva ut strängarna som den är utan att koden körs i klientens webbläsare.
+Jag provade mig på simulera XSS attacker genom att skriva javascript i GET-datan in i angular, men angular sköter detta bra genom att skriva ut strängarna som de är utan att koden körs i klientens webbläsare.
 
 ### Hur har du tänkt kring optimeringen i din applikation?
 
