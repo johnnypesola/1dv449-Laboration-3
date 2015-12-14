@@ -34,6 +34,7 @@
               zoom: 5
           };
           $scope.pageNum = 1;
+          $scope.totalPages = 1;
 
       /* Init variables END */
 
@@ -53,6 +54,9 @@
 
                       // Draw map with markers
                       drawMap();
+
+                      // Get total pages
+                      $scope.totalPages = TrafficInfo.getTotalPages();
                   })
 
               // In case data cannot be fetched, display an error to user.
@@ -140,7 +144,7 @@
           $scope.changePage = function(diffInt){
 
               // Not if pageNum becomes less than 1 or if there are no more messages on the page (its the last page).
-              if($scope.pageNum + diffInt >= 1 && diffInt < 0 || diffInt > 0 && $scope.allTrafficMessagesArray.length){
+              if($scope.pageNum + diffInt >= 1 && $scope.pageNum + diffInt <= $scope.totalPages){
                   $scope.pageNum += diffInt;
 
                   getTrafficInfo();

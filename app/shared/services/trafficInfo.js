@@ -14,7 +14,8 @@
         /* Init Variables START */
 
             var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/',
-                messagesToGet = 12,
+                messagesToGet = 100,
+                pageEntryCount = 12,
                 serviceMethods = {},
                 cacheName = 'trafficInfoCache',
                 cachedData;
@@ -39,6 +40,8 @@
                 return new Date(parseInt(dateStr.substr(6)));
             };
 
+            var totalPagesNum = 0;
+
         /* Private Methods END */
 
         /* Public Methods START */
@@ -61,7 +64,8 @@
 
             serviceMethods.getAll = function(pageNumber){
 
-                var deferred, trafficMessagesToReturnArray = [];
+                var deferred, trafficMessagesToReturnArray = [],
+                    startEntryIndex, endEntryIndex;
 
                 // Create promise
                 deferred = $q.defer();
@@ -72,8 +76,7 @@
                     params: {
                         format: 'json',
                         sort: 'createddate',
-                        size: messagesToGet,
-                        page: pageNumber || 1
+                        size: messagesToGet
                     }
                 })
 
@@ -93,6 +96,16 @@
                             return new Date(b.createddate) - new Date(a.createddate);
                         });
 
+                        // Update total pages variable
+                        totalPagesNum = Math.ceil(trafficMessagesToReturnArray.length / pageEntryCount);
+
+                            // Apply slicing to results with pagenum
+                        startEntryIndex = pageEntryCount * (pageNumber - 1);
+                        endEntryIndex = pageEntryCount * pageNumber;
+
+                        // Slice entries
+                        trafficMessagesToReturnArray = trafficMessagesToReturnArray.slice(startEntryIndex, endEntryIndex);
+
                         // Return parsed array
                         deferred.resolve(trafficMessagesToReturnArray);
                     })
@@ -106,6 +119,10 @@
 
                 // Return promise
                 return deferred.promise;
+            };
+
+            serviceMethods.getTotalPages = function(){
+                return totalPagesNum;
             };
 
             serviceMethods.getCategories = function(){

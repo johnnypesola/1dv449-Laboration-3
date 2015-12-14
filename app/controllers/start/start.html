@@ -26,8 +26,8 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="active"><a href="">Sida {{pageNum}}<span class="sr-only">(current)</span></a></li>
-                        <li ng-class="{disabled: !allTrafficMessagesArray.length}">
+                        <li class="active"><a href="">Sida {{pageNum}} av {{totalPages}}<span class="sr-only">(current)</span></a></li>
+                        <li ng-class="{disabled: pageNum >= totalPages}">
                             <a href="" aria-label="Next" ng-click="changePage(1)">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
@@ -48,8 +48,8 @@
                 <thead>
                     <tr>
                         <th>Prio</th>
-                        <th>Tidpunkt</th>
                         <th>Titel</th>
+                        <th>Tidpunkt</th>
                         <th>Typ</th>
                         <th></th>
                     </tr>
@@ -64,16 +64,16 @@
                             <span class="label prio{{trafficMessage.priority}}">{{trafficMessage.priority}}</span>
                         </td>
                         <td>
+                            {{trafficMessage.title}}
+                        </td>
+                        <td class="date-field">
                             <small>{{trafficMessage.createddate | date:'yyyy-MM-dd (HH:mm)'}}</small>
                         </td>
                         <td>
-                            {{trafficMessage.title}}
+                            <small>{{trafficMessage.subcategory}}</small>
                         </td>
                         <td>
-                            {{trafficMessage.subcategory}}
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-xs btn-info" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">Info</button>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">Info</button>
                         </td>
                     </tr>
                 </tbody>

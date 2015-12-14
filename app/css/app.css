@@ -38,12 +38,18 @@
 .map-marker-button span.cat-text {
     margin-left: 19px;
     background: none !important;
+    display: block;
+    white-space: nowrap;
 }
 
 ng-map {
     margin-top: 34px;
     height: 600px !important;
     display: block;
+}
+
+td.date-field {
+    width: 125px;
 }
 
 tr.highlight {
