@@ -14,7 +14,7 @@
         /* Init Variables START */
 
             var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/',
-                messagesToGet = 100,
+                messagesToGet = 200,
                 pageEntryCount = 12,
                 serviceMethods = {},
                 cacheName = 'trafficInfoCache',
