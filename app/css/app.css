@@ -52,11 +52,11 @@ td.date-field {
     width: 125px;
 }
 
-tr.highlight {
+tr.mountaingoat {
     background: #d9edf7;
 }
 
-a.highlight {
+a.mountaingoat {
     background: #0b97c4;
     color: #fff;
 
@@ -65,11 +65,11 @@ a.highlight {
     box-shadow:         none;
 }
 
-a.highlight:after {
+a.mountaingoat:after {
     border-color: #0b97c4 transparent;
 }
 
-a.highlight span.label {
+a.mountaingoat span.label {
     background: #fff !important;
     color: #0b97c4;
 }

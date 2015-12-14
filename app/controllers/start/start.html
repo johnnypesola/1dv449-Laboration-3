@@ -58,7 +58,7 @@
                     <tr ng-repeat="trafficMessage in trafficMessages"
                         ng-mouseover="highlightTrafficMessage(trafficMessage)"
                         ng-mouseleave="highlightTrafficMessage()"
-                        ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
+                        ng-class="{mountaingoat: hightlightedTrafficMsg == trafficMessage}"
                     >
                         <td class="text-center">
                             <span class="label prio{{trafficMessage.priority}}">{{trafficMessage.priority}}</span>
@@ -97,7 +97,7 @@
                                ng-mouseleave="highlightTrafficMessage()"
                                data-toggle="modal"
                                data-target="#specificTrafficMessage"
-                               ng-class="{highlight: hightlightedTrafficMsg == trafficMessage}"
+                               ng-class="{mountaingoat: hightlightedTrafficMsg == trafficMessage}"
                             >
                                 <span class="label prio{{trafficMessage.priority}}">{{trafficMessage.priority}}</span>
 
