@@ -24,15 +24,16 @@
 
       /* Init variables START */
           var that = this;
-          var allTrafficMessagesArray = [];
           var getDataInterval = 1000 * 60 * 5; // Every 5 minutes
 
+          $scope.allTrafficMessagesArray = [];
           $scope.allTrafficMsgCategories = TrafficInfo.getCategories();
           $scope.currentTrafficMsgCategory = "all";
           $scope.mapValues = {
               center: [62, 16],
               zoom: 5
           };
+          $scope.pageNum = 1;
 
       /* Init variables END */
 
@@ -40,12 +41,12 @@
 
           var getTrafficInfo = function(){
 
-              TrafficInfo.getAll()
+              TrafficInfo.getAll($scope.pageNum)
 
               // All went good.
                   .then(function(trafficMessages){
 
-                      allTrafficMessagesArray = trafficMessages;
+                      $scope.allTrafficMessagesArray = trafficMessages;
 
                       // Display all messages
                       displayMessagesForCategory();
@@ -71,7 +72,7 @@
               // If category num is between 0 and 4
               if(+$scope.currentTrafficMsgCategory >= 0 && +$scope.currentTrafficMsgCategory <= 4) {
 
-                  allTrafficMessagesArray.forEach(function(message){
+                  $scope.allTrafficMessagesArray.forEach(function(message){
 
                       // If message category is the category that the user wants
                       if(message.category === +$scope.currentTrafficMsgCategory) {
@@ -83,7 +84,7 @@
 
               }
               else {
-                  $scope.trafficMessages = allTrafficMessagesArray;
+                  $scope.trafficMessages = $scope.allTrafficMessagesArray;
               }
 
               // If no items were found, set flag
@@ -134,6 +135,16 @@
           $scope.highlightTrafficMessage = function(trafficMessage){
 
               $scope.hightlightedTrafficMsg = trafficMessage;
+          };
+
+          $scope.changePage = function(diffInt){
+
+              // Not if pageNum becomes less than 1 or if there are no more messages on the page (its the last page).
+              if($scope.pageNum + diffInt >= 1 && diffInt < 0 || diffInt > 0 && $scope.allTrafficMessagesArray.length){
+                  $scope.pageNum += diffInt;
+
+                  getTrafficInfo();
+              }
           };
 
       /* Public methods END */

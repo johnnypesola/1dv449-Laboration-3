@@ -13,7 +13,8 @@
 
         /* Init Variables START */
 
-            var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/?format=json',
+            var apiUrl = 'http://api.sr.se/api/v2/traffic/messages/',
+                messagesToGet = 12,
                 serviceMethods = {},
                 cacheName = 'trafficInfoCache',
                 cachedData;
@@ -58,7 +59,7 @@
              }
              */
 
-            serviceMethods.getAll = function(){
+            serviceMethods.getAll = function(pageNumber){
 
                 var deferred, trafficMessagesToReturnArray = [];
 
@@ -66,7 +67,15 @@
                 deferred = $q.defer();
 
                 // Fetch api result
-                $http.get(apiUrl, { cache: cachedData })
+                $http.get(apiUrl, {
+                    cache: cachedData,
+                    params: {
+                        format: 'json',
+                        sort: 'createddate',
+                        size: messagesToGet,
+                        page: pageNumber || 1
+                    }
+                })
 
                     // All went good.
                     .success(function(response){

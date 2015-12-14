@@ -1,5 +1,5 @@
 .push-top {
-    margin-top: 20px;
+    margin-top: 28px;
 }
 
 .map-marker-button {
@@ -41,6 +41,7 @@
 }
 
 ng-map {
+    margin-top: 34px;
     height: 600px !important;
     display: block;
 }

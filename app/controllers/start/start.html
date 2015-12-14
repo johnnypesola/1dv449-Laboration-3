@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6">
 
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-pills" role="tablist">
 
                 <li ng-class="{active: currentTrafficMsgCategory == 'all'}">
                     <a href="" ng-click="changeToTrafficMsgCategory('all')">Alla</a>
@@ -16,6 +16,25 @@
                 </li>
             </ul>
 
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12 text-right">
+                <nav>
+                    <ul class="pagination">
+                        <li ng-class="{disabled: pageNum <= 1}">
+                            <a href="" aria-label="Previous" ng-click="changePage(-1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="active"><a href="">Sida {{pageNum}}<span class="sr-only">(current)</span></a></li>
+                        <li ng-class="{disabled: !allTrafficMessagesArray.length}">
+                            <a href="" aria-label="Next" ng-click="changePage(1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -54,7 +73,7 @@
                             {{trafficMessage.subcategory}}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-info" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">Mer info</button>
+                            <button type="button" class="btn btn-xs btn-info" ng-click="setSpecificTrafficMsg(trafficMessage)" data-toggle="modal" data-target="#specificTrafficMessage">Info</button>
                         </td>
                     </tr>
                 </tbody>
