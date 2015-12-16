@@ -13,7 +13,7 @@ Johnny Pesola, December 2015
 
 ### Vad finns det för krav du måste anpassa dig efter i de olika API:erna?
 
-Ett krångligt krav att anpassa sig efter var det JSON specifika Date objektet ifrån SR:s API som jag inte kunde hitta något annat sätt än att helt enkelt parsa strängen på den till ett nytt Date objekt. Att tillämpa google maps API in i angular gör det krångligt att komma åt och använda google maps API direkt, eftersom jag valde att använda angular pluginen ng-maps. Det är allmänt svårt att hitta bra dokumentation för att få till önskade lösningar och man får ibland gissa och prova sig fram för att nå önskade effekter och förlita sig på lite tur.
+Ett krångligt krav att anpassa sig efter var det JSON specifika Date objektet ifrån SR:s API som jag inte kunde hitta något annat sätt än att helt enkelt parsa strängen på den till ett nytt Date objekt. Att tillämpa google maps API in i angular gör det krångligt att komma åt och använda google maps API direkt, eftersom jag valde att använda angular pluginen ng-maps. Det är allmänt svårt att hitta bra dokumentation för att få till önskade lösningar och man får ibland gissa och prova sig fram för att nå önskade effekter och förlita sig på lite tur. När jag hämtade lite information ifrån SR:s API så lyckades jag inte använda API:ets specifika sorteringsparamtrar. Vilket gjorde att jag inte garanterat kunde få ut de senaste händelserna om jag inte hämtade alla händelser på en gång.
 
 ### Hur och hur länge cachar du ditt data för att slippa anropa API:erna i onödan?
 
